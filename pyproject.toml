@@ -27,6 +27,7 @@ test = "coverage run -m pytest --benchmark-skip"
 bench = "coverage run -m pytest --benchmark-only"
 cov = "coverage report"
 mypy = "mypy ."
+all = ["format", "lint", "mypy", "test", "bench", "cov"]
 
 [build-system]
 requires = ["poetry-core"]
