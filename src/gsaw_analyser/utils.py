@@ -5,7 +5,7 @@ from typing import TypeVar
 import numpy as np
 from numpy.typing import NDArray
 from pymap3d import eci2aer
-from skyfield.api import load
+from skyfield.api import EarthSatellite, load
 
 from .data_model import GroundStation
 
@@ -25,11 +25,24 @@ def calculate_elevation_angles(gs: GroundStation, eci_positions: NDArray, times:
     )[1]
 
 
-def get_time_range(start_time: datetime, end_time: datetime):
-    ts = load.timescale()
+def get_time_range(start_time: datetime, end_time: datetime) -> datetime:
+    """
+    Returns python datetimes for each interval between the start and end times supplied.
+    """
     num_minutes = int((end_time - start_time).total_seconds() // 60)
     dt_range = [start_time + timedelta(minutes=i) for i in range(0, num_minutes)]
-    return ts.from_datetimes(dt_range), dt_range
+    return dt_range
+
+
+def get_eci_positions(tle: list[str, str], datetimes: list[datetime]) -> NDArray:
+    """
+    For a given two line element and list of python datetimes, compute the spacecraft
+    ECI position in metres. Propagation is perfomed using the Skyfield libraries implementation
+    of SGP4.
+    """
+    ts = load.timescale()
+    times = ts.from_datetimes(datetimes)
+    return EarthSatellite(tle[0], tle[1]).at(times).position.m
 
 
 def group_boolean_list(bools: list[bool]) -> list[tuple[int, int]]:

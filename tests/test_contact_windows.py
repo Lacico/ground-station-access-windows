@@ -110,6 +110,9 @@ def test_eci_positions(spacecraft_state):
     )
 
 def test_contact_windows(spacecraft_state, groundstation_models):
-    cw = spacecraft_state.contact_windows(groundstation_models)
-    assert cw == {}
-
+    v = spacecraft_state.contact_windows(groundstation_models)
+    assert v == {'A': [], 'B': [(datetime(2024, 8, 4, 11, 26, tzinfo=UTC), datetime(2024, 8, 4, 11, 27, tzinfo=UTC))]}
+    
+    # Second pass to hit the branch that skips recalculating the contact windows if they've been calculated before.
+    v = spacecraft_state.contact_windows(groundstation_models)
+    assert v == {'A': [], 'B': [(datetime(2024, 8, 4, 11, 26, tzinfo=UTC), datetime(2024, 8, 4, 11, 27, tzinfo=UTC))]}
