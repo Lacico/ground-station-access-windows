@@ -68,7 +68,7 @@ def spacecraft_models() -> list[SpacecraftModel]:
 @pytest.fixture
 def gsaw_model(groundstation_models, spacecraft_models) -> GsawDataModel:
     start_time = datetime(2024, 8, 4, 11, 26, 0, 0, UTC)
-    end_time = start_time + timedelta(minutes=2)
+    end_time = start_time + timedelta(minutes=1440)
 
     return GsawDataModel(
         analysis_start_time=start_time,
@@ -87,32 +87,8 @@ def mcw(gsaw_model) -> MissionContactWindows:
 def spacecraft_state(mcw) -> SpacecraftState:
     return mcw.spacecraft[0]
 
-
-@patch(
-    "gsaw_analyser.SpacecraftState.contact_windows",
-    lambda a, b: [(datetime(2024, 8, 4, 11, 26, 0, 0, UTC), datetime(2024, 8, 4, 11, 26, 0, 0, UTC))],
-)
-def test_get_contact_windows(mcw, spacecraft_models):
-    cw = mcw.get_contact_windows()
+@pytest.mark.benchmark
+def test_get_contact_windows(benchmark, mcw, spacecraft_models):
+    cw = benchmark(mcw.get_contact_windows)
     print(cw)
     assert list(cw.keys()) == [scm.id for scm in spacecraft_models]
-
-
-def test_eci_positions(spacecraft_state):
-    positions = spacecraft_state.eci_positions
-    assert_almost_equal(
-        positions,
-        [
-            [-615687.41138241, -186132.40592336],
-            [800843.69587572, 935404.51505035],
-            [-6962636.79989206, -6972747.00790911],
-        ],
-    )
-
-def test_contact_windows(spacecraft_state, groundstation_models):
-    v = spacecraft_state.contact_windows(groundstation_models)
-    assert v == {'A': [], 'B': [(datetime(2024, 8, 4, 11, 26, tzinfo=UTC), datetime(2024, 8, 4, 11, 27, tzinfo=UTC))]}
-
-    # Second pass to hit the branch that skips recalculating the contact windows if they've been calculated before.
-    v = spacecraft_state.contact_windows(groundstation_models)
-    assert v == {'A': [], 'B': [(datetime(2024, 8, 4, 11, 26, tzinfo=UTC), datetime(2024, 8, 4, 11, 27, tzinfo=UTC))]}

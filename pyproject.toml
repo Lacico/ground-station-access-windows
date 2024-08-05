@@ -17,11 +17,13 @@ ruff = "^0.5.6"
 mypy = "^1.11.1"
 coverage = "^7.6.0"
 pytest-mock = "^3.14.0"
+pytest-benchmark = "^4.0.0"
 
 [tool.poe.tasks]
 format = "ruff format"
 lint = "ruff check . --fix"
-test = "coverage run -m pytest"
+test = "coverage run -m pytest --benchmark-skip"
+bench = "coverage run -m pytest --benchmark-only"
 cov = "coverage report"
 mypy = "mypy ."
 

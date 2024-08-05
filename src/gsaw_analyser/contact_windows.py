@@ -31,7 +31,7 @@ class MissionContactWindows:
 class SpacecraftState:
     def __init__(self, model: SpacecraftModel, datetimes: list[datetime]):
         self.model = model
-        self.lba = model.link_budget_analysis
+        self.lba = model.link_budget_analyses
         self.datetimes = datetimes
         self._eci_positions: NDArray | None = None
         self._gs_elevations: dict[str, NDArray] = {}
