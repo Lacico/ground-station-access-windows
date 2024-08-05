@@ -13,7 +13,7 @@ from .data_model import GroundStation
 T = TypeVar("T")
 
 
-def calculate_elevation_angles(gs: GroundStation, eci_positions: NDArray, times: datetime):
+def calculate_elevation_angles(gs: GroundStation, eci_positions: NDArray, times: list[datetime]):
     return eci2aer(
         eci_positions[0, :],
         eci_positions[1, :],
@@ -25,7 +25,7 @@ def calculate_elevation_angles(gs: GroundStation, eci_positions: NDArray, times:
     )[1]
 
 
-def get_time_range(start_time: datetime, end_time: datetime) -> datetime:
+def get_time_range(start_time: datetime, end_time: datetime) -> list[datetime]:
     """
     Returns python datetimes for each interval between the start and end times supplied.
     """
@@ -34,7 +34,7 @@ def get_time_range(start_time: datetime, end_time: datetime) -> datetime:
     return dt_range
 
 
-def get_eci_positions(tle: list[str, str], datetimes: list[datetime]) -> NDArray:
+def get_eci_positions(tle: list[str], datetimes: list[datetime]) -> NDArray:
     """
     For a given two line element and list of python datetimes, compute the spacecraft
     ECI position in metres. Propagation is perfomed using the Skyfield libraries implementation

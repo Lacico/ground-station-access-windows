@@ -44,6 +44,9 @@ testpaths = ["tests"]
 module = [
     "pymap3d.*",
     "skyfield.*",
+    "numpy.*",
+    "pytest.*",
+    "pydantic.*"
 ]
 ignore_missing_imports = true
 

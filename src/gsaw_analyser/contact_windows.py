@@ -48,7 +48,7 @@ class SpacecraftState:
             self._eci_positions = get_eci_positions(self.model.tle, self.datetimes)
         return self._eci_positions
 
-    def contact_windows(self, ground_stations: list[GroundStation]) -> dict[list[dict[str, datetime]]]:
+    def contact_windows(self, ground_stations: list[GroundStation]) -> dict[str, list[tuple[datetime, datetime]]]:
         """
         Returns the contact windows available for the spacecraft during the simulation for all valid
         combinations of ground station and comm link defined in the link budget analyses.
@@ -66,7 +66,7 @@ class SpacecraftState:
         of contact windows for the spacecraft during the simulation.
         """
         in_fov = self._gs_elevations[ground_station_id] > min_elevation_angle
-        contact_windows = group_boolean_list(in_fov)
+        contact_windows = group_boolean_list(in_fov.tolist())
         return values_from_grouped_indices(contact_windows, self.datetimes)
 
     def _get_all_contact_windows(self):

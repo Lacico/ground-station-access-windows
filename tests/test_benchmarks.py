@@ -32,8 +32,8 @@ def spacecraft_models() -> list[SpacecraftModel]:
             ],
             comm_links=[CommLink(id="1")],
             link_budget_analyses={
-                "A": LinkBudgetAnalysis(comm_link_id="1", ground_station_id="North", min_elevation_angle="15"),
-                "B": LinkBudgetAnalysis(comm_link_id="1", ground_station_id="South", min_elevation_angle="25"),
+                "A": LinkBudgetAnalysis(comm_link_id="1", ground_station_id="North", min_elevation_angle=15.0),
+                "B": LinkBudgetAnalysis(comm_link_id="1", ground_station_id="South", min_elevation_angle=25.0),
             },
         ),
         SpacecraftModel(
@@ -44,8 +44,8 @@ def spacecraft_models() -> list[SpacecraftModel]:
             ],
             comm_links=[CommLink(id="1")],
             link_budget_analyses={
-                "A": LinkBudgetAnalysis(comm_link_id="1", ground_station_id="North", min_elevation_angle="15"),
-                "B": LinkBudgetAnalysis(comm_link_id="1", ground_station_id="South", min_elevation_angle="20"),
+                "A": LinkBudgetAnalysis(comm_link_id="1", ground_station_id="North", min_elevation_angle=15.0),
+                "B": LinkBudgetAnalysis(comm_link_id="1", ground_station_id="South", min_elevation_angle=20.0),
             },
         ),
         SpacecraftModel(
@@ -56,8 +56,8 @@ def spacecraft_models() -> list[SpacecraftModel]:
             ],
             comm_links=[CommLink(id="1")],
             link_budget_analyses={
-                "A": LinkBudgetAnalysis(comm_link_id="1", ground_station_id="North", min_elevation_angle="20"),
-                "B": LinkBudgetAnalysis(comm_link_id="1", ground_station_id="South", min_elevation_angle="25"),
+                "A": LinkBudgetAnalysis(comm_link_id="1", ground_station_id="North", min_elevation_angle=20.0),
+                "B": LinkBudgetAnalysis(comm_link_id="1", ground_station_id="South", min_elevation_angle=25.0),
             },
         ),
     ]
