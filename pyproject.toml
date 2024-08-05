@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "ground-station-access-windows"
+name = "ground-station-access-window-analyser"
 version = "0.1.0"
 description = "Perform ground station access window analysis for Earth satellites."
 authors = ["Lacico <lacicocodes@gmail.com>"]
@@ -9,12 +9,79 @@ readme = "README.md"
 python = "^3.11"
 pymap3d = "^3.1.0"
 skyfield = "^1.49"
-
+pydantic = "^2.8.2"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.2"
 ruff = "^0.5.6"
+mypy = "^1.11.1"
+coverage = "^7.6.0"
+pytest-mock = "^3.14.0"
+
+[tool.poe.tasks]
+format = "ruff format"
+lint = "ruff check . --fix"
+test = "coverage run -m pytest"
+cov = "coverage report"
+mypy = "mypy ."
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "src"
+]
+testpaths = ["tests"]
+
+
+[[tool.mypy.overrides]]
+module = [
+    "pymap3d.*",
+    "skyfield.*",
+]
+ignore_missing_imports = true
+
+
+[tool.coverage.run]
+omit = [
+    "tests/*",
+]
+branch = true
+
+[tool.coverage.report]
+omit = [
+    "tests/*",
+]
+show_missing = true
+
+
+[tool.ruff]
+line-length = 119
+
+[tool.ruff.lint]
+# Never enforce `E501` (line length violations).
+ignore = ["C901", "E501", "E741", "F402", "F823" ]
+select = ["C", "E", "F", "I", "W"]
+
+# Ignore import violations in all `__init__.py` files.
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["E402", "F401", "F403", "F811"]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+known-first-party = ["gsaw_analyser"]
+
+[tool.ruff.format]
+# Like Black, use double quotes for strings.
+quote-style = "double"
+
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"

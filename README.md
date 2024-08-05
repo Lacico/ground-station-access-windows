@@ -12,6 +12,9 @@ The SGP4 implementation being used is that which is included in the [skyfield](h
 * Calculate AER coordinates for each ground station to target the spacecraft ECI coordinates.
 * If elevation is larger than the minimum elevation from the link budget analysis, a contact can be made.
 
+## Development
+
+Formatting and linting are performed using [ruff]
 
 ## Data Model
 
