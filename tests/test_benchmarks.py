@@ -1,8 +1,6 @@
 from datetime import UTC, datetime, timedelta
-from unittest.mock import patch
 
 import pytest
-from numpy.testing import assert_almost_equal
 
 from gsaw_analyser import (
     CommLink,
@@ -86,6 +84,7 @@ def mcw(gsaw_model) -> MissionContactWindows:
 @pytest.fixture
 def spacecraft_state(mcw) -> SpacecraftState:
     return mcw.spacecraft[0]
+
 
 @pytest.mark.benchmark
 def test_get_contact_windows(benchmark, mcw, spacecraft_models):
