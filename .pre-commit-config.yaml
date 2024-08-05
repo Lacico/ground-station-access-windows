@@ -2,6 +2,8 @@ repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v2.3.0
   hooks:
+  -   id: check-merge-conflict
+  -   id: debug-statements
   -   id: check-yaml
   -   id: end-of-file-fixer
   -   id: trailing-whitespace
@@ -14,3 +16,10 @@ repos:
       args: [ --fix ]
     # Run the formatter.
     - id: ruff-format
+- repo: https://github.com/pre-commit/mirrors-mypy
+  rev: v1.2.0
+  hooks:
+    - id: mypy
+      args: [--allow-redefinition]
+      exclude: ^examples/
+      additional_dependencies: [types-tqdm]
