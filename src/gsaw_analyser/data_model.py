@@ -23,7 +23,7 @@ class LinkBudgetAnalysis(BaseModel):
 class SpacecraftModel(BaseModel):
     id: str
     comm_links: list[CommLink]
-    link_budget_analysis: dict[str, LinkBudgetAnalysis]
+    link_budget_analyses: dict[str, LinkBudgetAnalysis]
     tle: list[str]
 
 

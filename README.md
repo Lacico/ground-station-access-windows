@@ -22,29 +22,32 @@ This tool is designed as a module for the spacecraft analysis software suite. It
 
 ```json
 {
-    analysis-start-time: String
-    analysis-end-time: String
+    analysis_start_time: String
+    analysis_end_time: String
     spacecraft: [
         {
             id: string,
-            comm-links: [
+            comm_links: [
                 {
                     id: String,
                     ...
                 }
             ]
-            link-budget-analysis: [
+            link_budget_analyses: [
                 {
-                    comm-link-id: String,
-                    ground-station-id: String,
-                    min-elevation-angle: Number,
+                    id: String,
+                    link_budget_analysis: {
+                        comm_link_id: String,
+                        ground_station_id: String,
+                        min_elevation_angle: Number,
+                    }
                 }
             ],
             tle: String[],
             ...
         }
     ],
-    ground-stations: [
+    ground_stations: [
         {
             id: String,
             lat: Number,
