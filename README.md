@@ -1,4 +1,4 @@
-# Ground Station Access Windows
+# Ground Station Access Windows (Contact Windows)
 
 Analyses potential access windows where an Earth Satellite is in the radio field of view of a ground station. The code will perform analysis for collections of ground stations and spacecraft. Each spacecraft can have multiple comm links.
 
@@ -14,7 +14,11 @@ The SGP4 implementation being used is that which is included in the [skyfield](h
 
 ## Development
 
-Formatting and linting are performed using [ruff]
+The project uses [poetry](https://github.com/python-poetry/poetry) for it's python environment and [poe the poet](https://github.com/nat-n/poethepoet) for a task runner. [Pre-commit](https://github.com/pre-commit/pre-commit) should be installed prior to commiting changes. [ruff](https://github.com/astral-sh/ruff) is used for linting and formatting, [pytest](https://github.com/pytest-dev/pytest) along with [pytest-benchmark](https://github.com/ionelmc/pytest-benchmark) and [pytest-mock](https://github.com/pytest-dev/pytest-mock/) are used for testing, reports are generated using coverage. [mypy](https://github.com/python/mypy) is used for static typing. A number of poe tasks have been configured to simplify running these commands, `poe all` will run all commands required to pass prior to merge.
+
+The pre-commit hooks will run the ruff linting, formatting and mypy typing checks prior to commiting. Tests must be passing and test coverage must be 100% before code is merged to main.
+
+To make changes a branch should be opened off of main and a pull-request opened back to main once complete.
 
 ## Data Model
 
